@@ -17,10 +17,7 @@ const Login = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //      if (!loginInfo.email || !loginInfo.password) {
-    //   toast.error("All fields are required");
-    //   return;
-    // }
+  
 
     try {
 
