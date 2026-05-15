@@ -77,15 +77,11 @@ const AddNote = () => {
         category_id: "",
         description: ""
       });
-
-
-
     } catch (error) {
 
       console.log(error);
 
     }
-
   };
 
   return (
@@ -151,7 +147,7 @@ const AddNote = () => {
                     key={val.id}
                     value={val.id}
                   >
-                    {cat.name}
+                    {val.name}
                   </option>
                 ))
               }

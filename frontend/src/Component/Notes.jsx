@@ -9,7 +9,7 @@ import { FiEdit2 } from "react-icons/fi";
 import { useAuth } from "../Context/AuthContext";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 
-const Notes = ({ search, setSearch , noteCategory  }) => {
+const Notes = ({ search, setSearch, noteCategory }) => {
   const { user } = useAuth();
   const userObject = user ? JSON.parse(user) : null;
   const API = import.meta.env.VITE_API_URL;
@@ -21,11 +21,7 @@ const Notes = ({ search, setSearch , noteCategory  }) => {
   const [category, setCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const [notesPerPage, setNotesPerPage] = useState(3);
-          const [categories, setCategories] = useState([]);
-
-
-
-
+  const [categories, setCategories] = useState([]);
 
   const handlePrev = () => {
     if (currentPage > 1) {
@@ -48,14 +44,14 @@ const Notes = ({ search, setSearch , noteCategory  }) => {
     }
   };
 
-         const fetchCategories = async () => {
-            try {
-              const res = await axios.get(`${API}/categories`);
-              setCategories(res.data);
-            } catch (err) {
-              console.log(err);
-            }
-          };
+  const fetchCategories = async () => {
+    try {
+      const res = await axios.get(`${API}/categories`);
+      setCategories(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const handleDelete = async (id) => {
     const res = await axios.delete(`${API}/note/${id}`)
     window.location.reload()
@@ -66,26 +62,20 @@ const Notes = ({ search, setSearch , noteCategory  }) => {
     fetchCategories()
   }, [])
 
-
-
-
-
-
-
   const filterNotes = notes.filter((item) => {
     const plainDescription = item.description
-  ?.replace(/<[^>]+>/g, "")
-  .toLowerCase();
+      ?.replace(/<[^>]+>/g, "")
+      .toLowerCase();
     const term = (search || "").toLowerCase();
     const matchSearch =
       item.title?.toLowerCase().includes(term) ||
       item.name?.toLowerCase().includes(term) ||
-      
-       plainDescription?.includes(term);
-const matchCategory =
-  category === "" ||
-  category === "All" ||
-  item.Name?.toLowerCase() === category.toLowerCase();
+
+      plainDescription?.includes(term);
+    const matchCategory =
+      category === "" ||
+      category === "All" ||
+      item.Name?.toLowerCase() === category.toLowerCase();
 
     return matchSearch && matchCategory
   })
@@ -140,7 +130,7 @@ const matchCategory =
             <MdKeyboardArrowDown className="text-gray-500" />
           </div>
 
-       {openCategory && (
+          {openCategory && (
             <div className="absolute top-18 bg-white border border-gray-200 w-full rounded">
               {["All", ...categories.map((c) => c.name)].map((item) => (
                 <div
@@ -272,17 +262,17 @@ const matchCategory =
             <MdOutlineKeyboardArrowLeft onClick={() => {
               handlePrev()
             }} className={`border border-gray-400 rounded-sm text-2xl cursor-pointer ${currentPage === 1
-                ? "opacity-50 cursor-not-allowed"
-                : ""
+              ? "opacity-50 cursor-not-allowed"
+              : ""
               }`}
             />
             <h1>{currentPage}</h1>
             <MdOutlineKeyboardArrowRight onClick={() => {
               handleNext()
             }} className={`border border-gray-400 rounded-sm text-2xl cursor-pointer ${currentPage === totalPages ||
-                totalPages === 0
-                ? "opacity-50 cursor-not-allowed"
-                : ""
+              totalPages === 0
+              ? "opacity-50 cursor-not-allowed"
+              : ""
               }`}
             />
           </div>

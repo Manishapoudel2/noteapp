@@ -16,7 +16,7 @@ const EditCategory = () => {
 
             const res = await axios.get(`${API}/categories/${id}`);
 
-           
+
             setEditCategories(res.data[0]);
 
         } catch (error) {
